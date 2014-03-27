@@ -32,6 +32,9 @@ func New() *Gexf {
 			EdgeType: DefaultEdgeType,
 			IdType:   DefaultIdType,
 			Type:     DefaultGraphType,
+			Attributes: Attributes{
+				Class: DefaultClassType,
+			},
 		},
 	}
 }
@@ -42,6 +45,14 @@ func (g *Gexf) AddNode(n Node) {
 
 func (g *Gexf) AddEdge(e Edge) {
 	g.Graph.Edges.Add(e)
+}
+
+func (g *Gexf) AddAttribute(a Attribute) {
+	g.Graph.Attributes.Add(a)
+}
+
+func (g *Gexf) AddAttributeToNode(idx int, a AttValue) {
+	g.Graph.Nodes.Node[idx].AttValues.Add(a)
 }
 
 func (g *Gexf) Save(file string) error {
@@ -76,4 +87,12 @@ func (ns *Nodes) Add(n Node) {
 func (es *Edges) Add(e Edge) {
 	es.Edge = append(es.Edge, e)
 	es.Count++
+}
+
+func (at *Attributes) Add(a Attribute) {
+	at.Attribute = append(at.Attribute, a)
+}
+
+func (at *AttValues) Add(a AttValue) {
+	at.AttValue = append(at.AttValue, a)
 }

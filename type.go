@@ -29,8 +29,9 @@ type Graph struct {
 	IdType   IdType    `xml:"idtype,attr"`
 	EdgeType EdgeType  `xml:"defaultedgetype,attr"`
 
-	Nodes Nodes `xml:"nodes"`
-	Edges Edges `xml:"edges"`
+	Attributes Attributes `xml:"attributes,omitempty"`
+	Nodes      Nodes      `xml:"nodes"`
+	Edges      Edges      `xml:"edges"`
 }
 
 type EdgeType string
@@ -65,14 +66,44 @@ type Meta struct {
 	Description  string `xml:"description,omitempty"`
 }
 
+type ClassType string
+
+const (
+	ClassNode        = ClassType("node")
+	ClassEdge        = ClassType("edge")
+	DefaultClassType = ClassNode
+)
+
+type Attributes struct {
+	Class     ClassType   `xml:"class,attr"`
+	Attribute []Attribute `xml:"attribute"`
+}
+
+type Attribute struct {
+	Id      string `xml:"id,attr"`
+	Type    string `xml:"type,attr"`
+	Title   string `xml:"title,attr"`
+	Default string `xml:",innerxml"`
+}
+
 type Nodes struct {
 	Node  []Node `xml:"node"`
 	Count int    `xml:"count,attr"`
 }
 
 type Node struct {
-	Id    string `xml:"id,attr"`
-	Label string `xml:"label,attr"`
+	Id        string    `xml:"id,attr"`
+	Label     string    `xml:"label,attr"`
+	AttValues AttValues `xml:"attvalues"`
+}
+
+type AttValues struct {
+	AttValue []AttValue `xml:"attvalue"`
+}
+
+type AttValue struct {
+	For   string `xml:"for,attr"`
+	Value string `xml:"value,attr"`
 }
 
 type Edges struct {
