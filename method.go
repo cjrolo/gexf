@@ -7,7 +7,7 @@ package gexf
 import (
 	"encoding/xml"
 	"os"
-	"strconv"
+	//"strconv"
 	"time"
 )
 
@@ -57,12 +57,12 @@ func (g *Gexf) AddAttributeToNode(idx int, a AttValue) {
 }
 
 func (g *Gexf) GetNodeAttVal(nodeIdx int, attIdx int) (string, error) {
-	attIdstr := strconv.Atof(attId)
 	val := g.Graph.Nodes.Node[nodeIdx].AttValues.AttValue[attIdx].Value
 	return val, nil
 }
 
 func (g *Gexf) SetNodeAttVal(nodeIdx int, attIdx int, attValue string) error {
+	//attIdstr := strconv.Atof(attId)
 	g.Graph.Nodes.Node[nodeIdx].AttValues.AttValue[attIdx].Value = attValue
 	return nil
 }
